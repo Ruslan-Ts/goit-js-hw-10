@@ -23,12 +23,12 @@ function onInputCountry() {
       countryList.innerHTML = '';
       countryInfo.innerHTML = '';
       if (countries.length === 1) {
-        countryList.insertAdjacentHTML('beforeend', getCountryList);
-        countryInfo.insertAdjacentHTML('beforeend', getCountryInfo);
+        countryList.insertAdjacentHTML('beforeend', getCountryList(countries));
+        countryInfo.insertAdjacentHTML('beforeend', getCountryInfo(countries));
       } else if (countries.length >= 10) {
         moreSpecificName();
       } else {
-        countryList.insertAdjacentHTML('beforeend', getCountryList);
+        countryList.insertAdjacentHTML('beforeend', getCountryList(countries));
       }
     })
     .catch(noCountryName);
@@ -37,7 +37,7 @@ function onInputCountry() {
 function getCountryList(countries) {
   const markup = countries
     .map(({ flags, name }) => {
-      return `<li class="country-list">
+      return `<li class="country-item">
   <img src="${flags.svg}" alt="${flags.alt}" width="30px" height="20px">
   <h2 class="country-name">${name.official}</h2>
 </li>`;
@@ -52,7 +52,7 @@ function getCountryInfo(countries) {
       return `<ul class="js-list">
         <li>Capital: ${capital}</li>
         <li>Population: ${population}</li>
-        <li>Languages: ${Object.values.languages}</li>
+        <li>Languages: ${Object.values(languages)}</li>
         </ul>`;
     })
     .join('');
