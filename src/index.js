@@ -14,8 +14,9 @@ inputForm.addEventListener('input', debounce(onInputCountry, DEBOUNCE_DELAY));
 function onInputCountry() {
   const countryName = inputForm.value.trim();
 
-  if (countryName === '') {
+  if (!countryName) {
     (countryList.innerHTML = ''), (countryInfo.innerHTML = '');
+    return;
   }
   fetchCountries(countryName)
     .then(countries => {
@@ -52,7 +53,7 @@ function getCountryInfo(countries) {
       return `<ul class="js-list">
         <li>Capital: ${capital}</li>
         <li>Population: ${population}</li>
-        <li>Languages: ${Object.values(languages)}</li>
+        <li>Languages: ${Object.values(languages).join(', ')}</li>
         </ul>`;
     })
     .join('');
